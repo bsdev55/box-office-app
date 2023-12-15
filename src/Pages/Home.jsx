@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { searchForShows, searchForPeople } from '../api/tvmaze';
+import ShowGrid from '../component/shows/ShowGrid';
+import ActorsGrid from '../component/actors/ActorsGrid';
 
 function Home() {
   const [searchStr, setSearchStr] = useState('');
@@ -13,14 +15,14 @@ function Home() {
 
   const onRadioChange = ev => {
     setSearchOption(ev.target.value);
-  }
+  };
 
   const onSearch = async ev => {
     ev.preventDefault();
 
     try {
       setApiDataError(null);
-      if(searchOption === 'shows'){
+      if (searchOption === 'shows') {
         const result = await searchForShows(searchStr);
         setApiData(result);
       } else {
@@ -28,7 +30,6 @@ function Home() {
         setApiData(result);
       }
     } catch (error) {
-
       setApiDataError(error);
       console.log(apiDataError);
     }
@@ -40,11 +41,16 @@ function Home() {
       return <div>Error occured: {apiDataError.message} </div>;
     }
 
+    if(apiData?.length === 0) {
+      return <div>No results</div>
+    }
+
     if (apiData) {
-      return apiData[0].show ? apiData.map(data => (
-        <div key={data.show.id}>{data.show.name}</div>
-      )) :  apiData.map(data => (
-        <div key={data.person.id}>{data.person.name}</div>))
+      return apiData[0].show ? (
+        <ShowGrid shows={apiData} />
+      ) : (
+        <ActorsGrid actors={apiData} />
+      );
     }
     return null;
   };
