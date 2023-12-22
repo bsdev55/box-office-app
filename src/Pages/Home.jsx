@@ -2,31 +2,24 @@ import { useState } from 'react';
 import { searchForShows, searchForPeople } from '../api/tvmaze';
 import ShowGrid from '../component/shows/ShowGrid';
 import ActorsGrid from '../component/actors/ActorsGrid';
+import SearchForm from '../component/SearchForm';
 
 function Home() {
-  const [searchStr, setSearchStr] = useState('');
   const [apiData, setApiData] = useState(null);
   const [apiDataError, setApiDataError] = useState(null);
-  const [searchOption, setSearchOption] = useState('shows');
 
-  const onSearchInputChange = ev => {
-    setSearchStr(ev.target.value);
-  };
+ 
 
-  const onRadioChange = ev => {
-    setSearchOption(ev.target.value);
-  };
-
-  const onSearch = async ev => {
-    ev.preventDefault();
+  const onSearch = async ({q, searchOption}) => {
 
     try {
       setApiDataError(null);
       if (searchOption === 'shows') {
-        const result = await searchForShows(searchStr);
+        const result = await searchForShows(q);
         setApiData(result);
       } else {
-        const result = await searchForPeople(searchStr);
+        const result = await 
+        searchForPeople(q);
         setApiData(result);
       }
     } catch (error) {
@@ -56,6 +49,8 @@ function Home() {
   };
   return (
     <div>
+      <SearchForm onSearch={onSearch} />
+      {/*
       <form onSubmit={onSearch}>
         <input type="text" value={searchStr} onChange={onSearchInputChange} />
         <label>
@@ -79,7 +74,7 @@ function Home() {
           />
         </label>
         <button type="submit">Search</button>
-      </form>
+  </form>*/}
       <div>{renderApiData()}</div>
     </div>
   );
