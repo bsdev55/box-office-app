@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import { getShowById } from "../api/tvmaze";
 
 const Show = () => {
     const { showId } = useParams();
-    const [showData, setShowData] = useState(null);
+    /*const [showData, setShowData] = useState(null);
     const [showError, setShowError] = useState(null);
     useEffect(() => {
         async function fetchData() {
@@ -18,7 +19,9 @@ const Show = () => {
 
         fetchData();
 
-    }, [showId]);
+    }, [showId]);*/
+  // Queries
+  const {data: showData, error: showError} = useQuery(['show', showId], () => getShowById(showId))
 
     if(showError) {
         return <div>We have an error: {showError.message}</div>
