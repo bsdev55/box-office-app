@@ -11,6 +11,7 @@ function Home() {
     queryKey: ['search', filter],
     queryFn: () => filter.searchOption === 'shows' ? searchForShows(filter.q) : searchForPeople(filter.q),
     enabled: !!filter,
+    refetchOnWindowFocus: false,
   })
 
  
