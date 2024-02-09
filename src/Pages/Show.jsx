@@ -1,5 +1,5 @@
 //import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getShowById } from '../api/tvmaze';
 import ShowMainData from '../component/shows/ShowMainData';
@@ -33,6 +33,15 @@ const Show = () => {
     queryFn: () => getShowById(showId),
     refetchOnWindowFocus: false
   });
+/*
+  const navigateTo = useNavigate();
+
+  const onGoBack = () => {
+    navigateTo('/');
+
+    //Use this with it
+    <button type='button' onClick={onGoBack}>Go Back to Home</button>
+  }*/
 
   if (showError) {
     return <div>We have an error: {showError.message}</div>;
@@ -40,6 +49,7 @@ const Show = () => {
   if (showData) {
     return (
       <div>
+        <Link to="/">Go Back To Home Page</Link>
         <ShowMainData
           image={showData.image}
           name={showData.name}

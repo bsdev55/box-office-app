@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
-import Home from './Home'
+import { useStarredShows} from '../lib/useStarredShows';
 
 function Starred() {
+  const [starredShows] = useStarredShows();
+
   return (
     <div>
-        <h3>Starred Page</h3>
-        <Link to={Home}>go back to Home Page</Link>
+        <h3>Starred Page, starred {starredShows.length}</h3>
     </div>
   )
 }
