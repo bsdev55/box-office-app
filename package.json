@@ -1,5 +1,5 @@
 {
-  "homepage": " https://bsdev55.github.io/box-office-app/",
+  "homepage": " http://bsdev55.github.io/box-office-app",
   "name": "thebox-offie",
   "version": "0.1.0",
   "private": true,
@@ -32,12 +32,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "format": "prettier --write src/**/*.{js,jsx}"
   },
   "eslintConfig": {
     "extends": [
